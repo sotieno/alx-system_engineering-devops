@@ -1,1 +1,1 @@
-System engineering repo with bash projects
+Shell Projects
