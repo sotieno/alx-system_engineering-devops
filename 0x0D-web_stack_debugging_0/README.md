@@ -8,7 +8,7 @@ For this project, a container is given that is to be used to solve the task. To 
 
 ## Installing Docker
 
-* [Mac OS](https://docs.docker.com/desktop/install/mac-install/
+* [Mac OS](https://docs.docker.com/desktop/install/mac-install/)
 * [Windows](https://docs.docker.com/desktop/install/windows-install/)
 * [Ubuntu 14.04](https://www.liquidweb.com/kb/how-to-install-docker-on-ubuntu-14-04-lts/) (Note that Docker for Ubuntu 14 is deprecated and you will have to make some adjustments to the instructions when installing)
 * [Ubuntu 16.04](https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-on-ubuntu-16-04)
