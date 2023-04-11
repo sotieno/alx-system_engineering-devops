@@ -1,11 +1,11 @@
 #!/usr/bin/env bash
 # installs nginx server
-apt-get update
-apt-get -y install nginx
+sudo apt-get update
+sudo apt-get -y install nginx
 
 # nginx profile opening only port 80
-ufw allow 'Nginx HTTP'
+sudo ufw allow 'Nginx HTTP'
 
 # create index.html
-echo "Hello World!" > /var/www/html/index.html
-service nginx start
+echo "Hello World!" | sudo tee -a /var/www/html/index.html
+sudo service nginx start
