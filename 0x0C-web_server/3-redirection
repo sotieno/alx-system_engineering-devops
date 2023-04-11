@@ -3,6 +3,9 @@
 sudo apt-get update
 sudo apt-get -y install nginx
 
+# start web server
+sudo service nginx start
+
 # nginx profile opening only port 80
 sudo ufw allow 'Nginx HTTP'
 sudo chown -R "$USER":"$USER" /var/www/html
