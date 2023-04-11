@@ -1,12 +1,12 @@
 #!/usr/bin/env bash
-# Configuring a redirection in an Ubuntu machine
+# Configuring a permanent redirection in an Ubuntu machine
 sudo apt-get update
 sudo apt-get -y install nginx
 
-sudo service nginx start
-
 # nginx profile opening only port 80
 sudo ufw allow 'Nginx HTTP'
+sudo chown -R "$USER":"$USER" /var/www/html
+sudo chmod -R 755 /var/www
 
 echo “301 Moved Permanently” | sudo tee -a /var/www/html/index.html
 sudo sed -i "/server_name _;/ a\\\trewrite ^/redirect_me https://www.youtube.com/watch?v=QH2-TGUlwu4 permanent;" /etc/nginx/sites-available/default
