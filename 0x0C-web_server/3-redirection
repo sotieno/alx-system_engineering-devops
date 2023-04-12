@@ -10,5 +10,5 @@ sudo cp /etc/nginx/sites-available/default /etc/nginx/sites-available/default.ba
 sudo ufw allow 'Nginx HTTP'
 
 echo "Hello World!" | sudo tee -a /var/www/html/index.html
-sudo sed -i '/^server_name _;/ a\\\t\trewrite ^/redirect_me\/?$ https://www.youtube.com/watch?v=QH2-TGUlwu4 permanent;/' /etc/nginx/sites-available/default
+sudo sed -i '/^server_name _;/a \\\tlocation /redirect_me {\n\t\trewrite ^ https://www.youtube.com/watch?v=QH2-TGUlwu4 permanent;\n\t}' /etc/nginx/sites-available/default
 sudo service nginx restart
