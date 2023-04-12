@@ -6,6 +6,6 @@ sudo apt-get -y install nginx
 # nginx profile opening only port 80
 sudo ufw allow 'Nginx HTTP'
 
-# echo “301 Moved Permanently” | sudo tee -a /var/www/html/index.html
-sudo sed -i '/^server_name _;/a\\\trewrite ^/redirect_me https://www.youtube.com/watch?v=QH2-TGUlwu4 permanent;/' /etc/nginx/sites-available/default
+echo "Hello World!" | sudo tee -a /var/www/html/index.html
+sudo sed -i '/^server_name _;/ a\\\trewrite ^/redirect_me https://www.youtube.com/watch?v=QH2-TGUlwu4 permanent;/' /etc/nginx/sites-available/default
 sudo service nginx restart
