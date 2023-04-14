@@ -6,6 +6,7 @@ sudo apt-get -y install nginx
 # nginx profile opening only port 80
 sudo ufw allow 'Nginx HTTP'
 
+# Create index.html
 echo "Hello World!" | sudo tee -a /var/www/html/index.html
 
 # Set up redirection using sed for specified url
@@ -14,7 +15,6 @@ sudo sed -i '/listen \[::\]:80 default_server/a \\n\tlocation /redirect_me {\n\t
 # Create custom 404 page
 echo "Ceci n'est pas une page" | sudo tee -a /var/www/html/404.html
 
-# Set up the custom 404 page using sed
-sudo sed -i '/error_page 404/c \\terror_page 404 /404.html;\n\tlocation = /404.html {\n\t\tinternal;\n\t}' /etc/nginx/sites-available/default
-
+# Configure nginx to use custom 404 page
+sudo sed -i '/listen \[::\]:80 default_server/a \\n\terror_page 404 \/404.html;\n\tlocation = \/404.html {\n\t\troot \/var\/www\/html;\n\t\tinternal;\n\t}' /etc/nginx/sites-available/default
 sudo service nginx start
