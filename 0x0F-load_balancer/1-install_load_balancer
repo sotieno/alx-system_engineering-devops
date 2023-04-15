@@ -12,4 +12,4 @@ sudo sed -i '/^backend http_backend/a \    balance roundrobin\n    server web-01
 echo "ENABLED=1" | sudo tee -a /etc/default/haproxy
 
 # Restart HAProxy
-sudo service haproxy start
+sudo service haproxy restart
