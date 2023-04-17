@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# installing haproxy
+# configuring haproxy
 
 # Create backup of the HAProxy configuration file
 sudo cp -a /etc/haproxy/haproxy.cfg{,.original_copy}
