@@ -1,6 +1,19 @@
 #!/usr/bin/env bash
-# Bash script to find out what is keeping Nginx installation from
-# listening on port 80.
+# Configure a Nginx server to run and listen to port 80.
 
-sed -i 's/8080/80/g' /etc/nginx/sites-enabled/default
-sudo service nginx restart
+# Check if nginx is installed
+if [ ! $(command -v nginx) ]; then
+  echo "Nginx is not installed, please install it first."
+  exit 1
+fi
+
+# Stop nginx if it's already running
+sudo service nginx stop
+
+# Delete existing ~/sites-enabled/default
+rm /etc/nginx/sites-enabled/default
+
+# S-link default file in sites-available with sites-enabled
+
+# Start nginx
+sudo service nginx start
