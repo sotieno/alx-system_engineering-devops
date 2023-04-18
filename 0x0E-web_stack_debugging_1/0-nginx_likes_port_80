@@ -10,7 +10,7 @@ fi
 # Stop nginx if it's already running
 sudo service nginx stop
 
-# Update Nginx configuration
+# Delete ~/sites-enabled/default
 rm /etc/nginx/sites-enabled/default
 
 # S-link default file in sites-available with sites-enabled
