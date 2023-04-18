@@ -14,7 +14,7 @@ sudo service nginx stop
 sed -i 's/8080/80/g' /etc/nginx/sites-enabled/default
 
 # S-link default file in sites-available with sites-enabled
-ls -s /etc/nginx/sites-available/default /etc/nginx/sites-enabled/default
+ln -s /etc/nginx/sites-available/default /etc/nginx/sites-enabled/default
 
 # Start nginx
 sudo service nginx start
