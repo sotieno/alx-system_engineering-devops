@@ -2,19 +2,20 @@
 # Configure a Nginx server to run and listen to port 80.
 
 # Check if nginx is installed
+# Install Nginx if not installed
 if [ ! $(command -v nginx) ]; then
-  echo "Nginx is not installed, please install it first."
-  exit 1
+    sudo apt-get update
+    sudo apt-get -y install nginx
 fi
 
 # Stop nginx if it's already running
 sudo service nginx stop
 
 # Delete ~/sites-enabled/default
-rm /etc/nginx/sites-enabled/default
+sudo rm /etc/nginx/sites-enabled/default
 
 # S-link default file in sites-available with sites-enabled
-ln -s /etc/nginx/sites-available/default /etc/nginx/sites-enabled/default
+sudo ln -s /etc/nginx/sites-available/default /etc/nginx/sites-enabled/default
 
 # Start nginx
 sudo service nginx start
