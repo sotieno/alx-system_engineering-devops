@@ -1,0 +1,75 @@
+#!/usr/bin/env bash
+# Script that displays information about subdomains
+
+function configure_domain_zone {
+  # Set up the DNS records for the subdomains
+  DOMAIN="$1"
+  LB_IP="$2"
+  WEB_01_IP="$3"
+  WEB_02_IP="$4"
+
+  # Remove any existing default subdomains
+  echo "Removing default subdomains..."
+  sed -i '/^www/d' /etc/bind/db."$DOMAIN"
+  sed -i '/^lb-01/d' /etc/bind/db."$DOMAIN"
+
+  # Add the new subdomains
+  echo "Adding subdomains..."
+  echo "www    IN A $LB_IP" >> /etc/bind/db."$DOMAIN"
+  echo "lb-01  IN A $LB_IP" >> /etc/bind/db."$DOMAIN"
+  echo "web-01 IN A $WEB_01_IP" >> /etc/bind/db."$DOMAIN"
+  echo "web-02 IN A $WEB_02_IP" >> /etc/bind/db."$DOMAIN"
+
+  # Restart the DNS server
+  echo "Restarting DNS server..."
+  systemctl restart bind9
+}
+
+function display_subdomain_info {
+  # Display information about a specific subdomain
+  DOMAIN="$1"
+  SUBDOMAIN="$2"
+
+  # Use dig to perform a DNS lookup for the subdomain
+  OUTPUT=$(dig "$SUBDOMAIN"."$DOMAIN" +short)
+
+  # Extract the record type and destination from the output
+  RECORD_TYPE=$(echo "$OUTPUT" | awk '{print $1}')
+  DESTINATION=$(echo "$OUTPUT" | awk '{print $2}')
+
+  # Print the information to the console
+  printf "The subdomain %s is a %s record and points to %s\n" "$SUBDOMAIN" "$RECORD_TYPE" "$DESTINATION"
+}
+
+function display_all_subdomains_info {
+  # Display information about all subdomains
+  DOMAIN="$1"
+
+  # Define the list of subdomains in the desired order
+  SUBDOMAINS=("www" "lb-01" "web-01" "web-02")
+
+  # Loop through the subdomains and display the information for each one
+  for SUBDOMAIN in "${SUBDOMAINS[@]}"; do
+    display_subdomain_info "$DOMAIN" "$SUBDOMAIN"
+  done
+}
+
+# Check for correct number of arguments
+if [ $# -lt 1 ]; then
+  echo "Usage: $0 <domain> [subdomain]"
+  exit 1
+fi
+
+# Set the domain and subdomain variables
+DOMAIN="$1"
+SUBDOMAIN="$2"
+
+# Configure the domain zone with the desired subdomains
+configure_domain_zone "$DOMAIN" "54.160.65.72" "52.91.146.214" "54.160.76.161"
+
+# Display information about the subdomains
+if [ -z "$SUBDOMAIN" ]; then
+  display_all_subdomains_info "$DOMAIN"
+else
+  display_subdomain_info "$DOMAIN" "$SUBDOMAIN"
+fi
