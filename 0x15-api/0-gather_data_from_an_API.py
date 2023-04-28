@@ -6,6 +6,7 @@ import sys
 
 url = 'https://jsonplaceholder.typicode.com/'
 
+
 def do_request():
     '''Performs request'''
 
@@ -40,6 +41,7 @@ def do_request():
           'is done with tasks({}/{}):'.
           format(len(completed), len(user_todos)))
     [print('\t', todo.get('title')) for todo in completed]
+
 
 if __name__ == '__main__':
     do_request()
