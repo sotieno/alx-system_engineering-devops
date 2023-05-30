@@ -46,8 +46,8 @@ server {
 
 	# Serve /number_odd_or_even/ route on AirBnB_clone_v2
 	location ~ ^/airbnb-dynamic/number_odd_or_even/(?<number>\d+)$ {
-                 proxy_pass http://localhost:5001/number_odd_or_even/$number;
-        }
+        proxy_pass http://localhost:5001/number_odd_or_even/$number;
+    }
 
 	#
 	# listen 443 ssl default_server;
