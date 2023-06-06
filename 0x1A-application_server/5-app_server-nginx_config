@@ -64,12 +64,14 @@ server {
         location / {
                 # First attempt to serve request as file, then
                 # as directory, then fall back to displaying a 404.
+
+                proxy_pass http://127.0.0.1:5003;
                 try_files $uri $uri/ =404;
         }
 
 		# Serve static content for AirBnB_clone_v4
-        location /static {
-                proxy_pass http://127.0.0.1:5003;
+        location /static/ {
+                alias /home/ubuntu/AirBnB_clone_v4/web_dynamic/static/;
         }
 
         #
@@ -106,4 +108,37 @@ server {
         #
         #location ~ \.php$ {
         #       include snippets/fastcgi-php.conf;
-"/etc/nginx/sites-enabled/default" 142L, 3642C                                                                                                                                                                                  103,3-10      35%
+        #
+        #       # With php-fpm (or other unix sockets):
+        #       fastcgi_pass unix:/var/run/php/php7.4-fpm.sock;
+        #       # With php-cgi (or other tcp sockets):
+        #       fastcgi_pass 127.0.0.1:9000;
+        #}
+
+        # deny access to .htaccess files, if Apache's document root
+        # concurs with nginx's one
+        #
+        #location ~ /\.ht {
+        #       deny all;
+        #}
+}
+
+
+# Virtual Host configuration for example.com
+#
+# You can move that to a different file under sites-available/ and symlink that
+# to sites-enabled/ to enable it.
+#
+#server {
+#       listen 80;
+#       listen [::]:80;
+#
+#       server_name example.com;
+#
+#       root /var/www/example.com;
+#       index index.html;
+#
+#       location / {
+#               try_files $uri $uri/ =404;
+#       }
+#}
