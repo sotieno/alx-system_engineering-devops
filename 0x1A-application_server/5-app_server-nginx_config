@@ -64,13 +64,12 @@ server {
         location / {
                 # First attempt to serve request as file, then
                 # as directory, then fall back to displaying a 404.
-
-                proxy_pass http://127.0.0.1:5003;
+                # proxy_pass http://127.0.0.1:5003;
                 try_files $uri $uri/ =404;
         }
 
 		# Serve static content for AirBnB_clone_v4
-        location /static/ {
+        location /static {
                 proxy_pass http://127.0.0.1:5003;
         }
 
