@@ -2,6 +2,7 @@
 '''Get ALL hot posts of a given Reddit subreddit'''
 import requests
 
+
 def count_words(subreddit, word_list, instances={}, after="", count=0):
     """Prints counts of given words found in hot posts of a given subreddit.
     Args:
